@@ -8,7 +8,7 @@ before do
   halt 405, {'Allow' => 'POST'}, "Awa' wi' ye!\n" unless request.request_method == 'POST' 
 end
 
-post '/*' do 
+post '/scottish*' do 
   incoming = JSON.parse(request.body.string)
   if (incoming.nil? or !incoming.has_key?('text')) then
     status 400

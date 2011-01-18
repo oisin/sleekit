@@ -1,0 +1,54 @@
+= Sleekit
+
+== Description
+
+What was I thinking of? This is a trivial and dumb Sinatra application that will receive a p
+iece of English text in a JSON payload and translate it to the appropriate Scottish/Glaswegian
+inflection. It uses an external service at whoohoo.co.uk[http://www.whoohoo.co.uk/] to do the 
+translation. You could update this code to do the other translations that they have on offer 
+there.
+
+I guess {this tweet}[http://twitter.com/#!/projectzebra/status/27473779294736384] was what
+started the whole dumb idea.
+
+== Features
+
+* Nothing worth talking about, except for the humorous translation thing
+
+== Requires
+
+Developed on Ruby 1.8.7. There are a number of gems you need to make it
+go.
+
+    gem install sinatra json hpricot
+
+== Install
+
+There is no gem. Clone it and go:
+
+    git clone git@github.com:oisin/sleekit.git
+    cd sleekit
+
+Then you can just run the server
+
+    ruby sleekit.rb
+
+== API
+
+You post a JSON hash with a 'text' key and the code translates the value at that
+key. If you don't have that key present, you'll get a 400 Bad Request.
+
+cURL examples are always best for this kind of thing, I find.
+
+   curl -X POST -d '{"text":"Where can I get the bus?"}' http://localhost:4567/scottish
+
+and this will return with
+
+   Whaur can Ah gie th' bus?
+
+i.e. a simple string that is the translation.  
+
+== In My Defense
+
+This was a fast and dirty experiment to play with hpricot specifically. I thought I
+would put it up here so that I won't get embarrassed when the TSA search my laptop.
