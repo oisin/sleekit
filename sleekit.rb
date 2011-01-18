@@ -10,7 +10,7 @@ end
 
 post '/*' do 
   incoming = JSON.parse(request.body.string)
-  if (incoming.nil or !incoming.has_key('text')) then
+  if (incoming.nil? or !incoming.has_key?('text')) then
     status 400
   else
     # Load translation from other page
