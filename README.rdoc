@@ -22,6 +22,12 @@ go.
 
     gem install sinatra json hpricot
 
+or since I've got a Gemfile for bundler, you can just do
+
+   bundle install
+
+if you have bundler installed already.
+
 == Install
 
 There is no gem. Clone it and go:

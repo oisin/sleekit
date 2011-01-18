@@ -1,15 +1,18 @@
 GEM
+  remote: http://rubygems.org/
   specs:
     hpricot (0.8.3)
+    json (1.2.0)
     rack (1.2.1)
     sinatra (1.1.2)
       rack (~> 1.1)
       tilt (~> 1.2)
-    tilt (1.2.1)
+    tilt (1.2.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   hpricot (= 0.8.3)
+  json (= 1.2.0)
   sinatra (= 1.1.2)
