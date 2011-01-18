@@ -7,14 +7,14 @@ before do
   halt 405, {'Allow' => 'POST'}, "Awa' wi' ye!\n" unless request.request_method == 'POST' 
 end
 
-post '/*' do |msg|
+post '/*' do 
   incoming = JSON.parse(request.body.string)
   if (incoming.nil or !incoming.has_key('text')) then
     status 400
   else
     # Load translation from other page
     http = Net::HTTP.new("www.whoohoo.co.uk", 80)
-    data = "pageid=scottie&topic=translator&string=#{msg}"
+    data = "pageid=scottie&topic=translator&string=" + incoming['text']
     headers = {
       'Content-Type' => 'application/x-www-form-urlencoded'
     }
