@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'hpricot'
+require 'json'
 require 'net/http'
 
 before do
