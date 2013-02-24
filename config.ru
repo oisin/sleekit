@@ -1,2 +1,2 @@
-require 'sleekit'
+require './sleekit'
 run Sinatra::Application
