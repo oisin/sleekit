@@ -8,36 +8,24 @@ inflection. It uses an external service at whoohoo.co.uk[http://www.whoohoo.co.u
 translation. You could update this code to do the other translations that they have on offer 
 there.
 
-I guess {this tweet}[http://twitter.com/#!/projectzebra/status/27473779294736384] was what
+I guess {this tweet}[https://twitter.com/projectzebra/status/27473779294736384] was what
 started the whole dumb idea.
 
 == Features
 
 * Nothing worth talking about, except for the humorous translation thing
 
-== Requires
-
-Developed on Ruby 1.8.7. There are a number of gems you need to make it
-go.
-
-    gem install sinatra json hpricot
-
-or since I've got a Gemfile for bundler, you can just do
-
-   bundle install
-
-if you have bundler installed already.
-
 == Install
 
-There is no gem. Clone it and go:
+There is no gem. Uses Ruby 1.9.3 and requires Bundler. Clone it and go:
 
-    git clone git@github.com:oisin/sleekit.git
-    cd sleekit
+    $ git clone git@github.com:oisin/sleekit.git
+    $ cd sleekit
+    $ bundle
 
 Then you can just run the server
 
-    ruby sleekit.rb
+    $ bundle exec rackup
 
 == API
 
@@ -46,7 +34,7 @@ key. If you don't have that key present, you'll get a 400 Bad Request.
 
 cURL examples are always best for this kind of thing, I find.
 
-   curl -X POST -d '{"text":"Where can I get the bus?"}' http://localhost:4567/scottish
+   curl -X POST -d '{"text":"Where can I get the bus?"}' http://localhost:9292/scottish
 
 and this will return with
 
