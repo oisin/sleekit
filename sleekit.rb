@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'sinatra'
 require 'hpricot'
 require 'json'
@@ -9,21 +8,25 @@ before do
 end
 
 post '/scottish*' do 
-  incoming = JSON.parse(request.body.string)
+  incoming = JSON.parse(request.body.read)
   if (incoming.nil? or !incoming.has_key?('text')) then
     status 400
   else
     # Load translation from other page
     http = Net::HTTP.new("www.whoohoo.co.uk", 80)
     data = "pageid=scottie&topic=translator&string=" + incoming['text']
-    headers = {
-      'Content-Type' => 'application/x-www-form-urlencoded'
-    }
-    resp, content = http.post('/main.asp', URI.escape(data), headers)
+
+    request = Net::HTTP::Post.new('/main.asp?' + URI.escape(data))
+    request['Convent-Type'] = 'application/x-www-form-urlencoded'
+    # The target website requires the Content-Length header to be set or 411
+    request['Content-Length'] = 0
+    response = http.request(request)
     
     # Scrape the result from piles of dreck
-    doc = Hpricot(content)
+    doc = Hpricot(response.body)    
     translation = (doc/"/html/body/table[3]/tr/td[3]/table/tr/td[2]/table/tr/td/form/b").inner_html
+    halt 404 if (translation.nil? or translation.empty?)
+    
     status 200
     body(translation)
   end
