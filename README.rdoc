@@ -54,14 +54,6 @@ and this will return with
 
 i.e. a simple string that is the translation.  
 
-== Live Version
-
-There's a good chance that I have a live version of this up on Heroku, just
-because it is so trivially easy to deploy there. If the following works, then
-it's running.
-
-   curl -X POST -d '{"text":"Where can I get the bus?"}' http://sleekit.heroku.com/scottish
-
 == In My Defense
 
 This was a fast and dirty experiment to play with hpricot specifically. I thought I
