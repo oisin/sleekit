@@ -9,25 +9,22 @@ end
 
 post '/scottish*' do 
   incoming = JSON.parse(request.body.read)
-  if (incoming.nil? or !incoming.has_key?('text')) then
-    status 400
-  else
-    # Load translation from other page
-    http = Net::HTTP.new("www.whoohoo.co.uk", 80)
-    data = "pageid=scottie&topic=translator&string=" + incoming['text']
+  halt 400 if (incoming.nil? or !incoming.has_key?('text'))
 
-    request = Net::HTTP::Post.new('/main.asp?' + URI.escape(data))
-    request['Convent-Type'] = 'application/x-www-form-urlencoded'
-    # The target website requires the Content-Length header to be set or 411
-    request['Content-Length'] = 0
-    response = http.request(request)
-    
-    # Scrape the result from piles of dreck
-    doc = Hpricot(response.body)    
-    translation = (doc/"/html/body/table[3]/tr/td[3]/table/tr/td[2]/table/tr/td/form/b").inner_html
-    halt 404 if (translation.nil? or translation.empty?)
-    
-    status 200
-    body(translation)
-  end
+  # Load translation from other page
+  http = Net::HTTP.new("www.whoohoo.co.uk", 80)
+  data = "pageid=scottie&topic=translator&string=" + incoming['text']
+
+  request = Net::HTTP::Post.new('/main.asp?' + URI.escape(data))
+  request['Convent-Type'] = 'application/x-www-form-urlencoded'
+  # The target website requires the Content-Length header to be set or 411
+  request['Content-Length'] = 0
+  response = http.request(request)
+  
+  # Scrape the result from piles of dreck
+  doc = Hpricot(response.body)    
+  translation = (doc/"/html/body/table[3]/tr/td[3]/table/tr/td[2]/table/tr/td/form/b").inner_html
+  halt 404 if (translation.nil? or translation.empty?)
+  
+  [200, {"Content-Type" => "text/plain"}, body(translation)]
 end
